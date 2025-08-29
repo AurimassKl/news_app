@@ -1,12 +1,13 @@
+import 'package:newsapp/core/result.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/domain/repositories/news_repository.dart';
 
 class GetNewsArticles {
-  GetNewsArticles(this.newsArticleRepository);
+  GetNewsArticles(this._repository);
 
-  final NewsArticlesRepository newsArticleRepository;
+  final NewsArticlesRepository _repository;
 
-  Future<List<NewsArticle>> getNewsArticles() {
-    return newsArticleRepository.getNewsArticles();
+  Future<Result<List<NewsArticle>>> call() {
+    return _repository.getNewsArticles();
   }
 }
