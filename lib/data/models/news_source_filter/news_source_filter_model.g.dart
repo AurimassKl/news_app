@@ -9,9 +9,9 @@ part of 'news_source_filter_model.dart';
 NewsSourceFilterModel _$NewsSourceFilterModelFromJson(
         Map<String, dynamic> json) =>
     NewsSourceFilterModel(
-      category: json['category'] as String,
-      language: json['language'] as String,
-      country: json['country'] as String,
+      category: json['category'] as String?,
+      language: json['language'] as String?,
+      country: json['country'] as String?,
     );
 
 Map<String, dynamic> _$NewsSourceFilterModelToJson(

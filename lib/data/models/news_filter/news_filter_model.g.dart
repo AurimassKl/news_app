@@ -11,7 +11,7 @@ NewsFilterModel _$NewsFilterModelFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String?,
       category: json['category'] as String?,
       sources: json['sources'] as String?,
-      query: json['query'] as String?,
+      q: json['q'] as String?,
     );
 
 Map<String, dynamic> _$NewsFilterModelToJson(NewsFilterModel instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$NewsFilterModelToJson(NewsFilterModel instance) =>
       if (instance.country case final value?) 'country': value,
       if (instance.category case final value?) 'category': value,
       if (instance.sources case final value?) 'sources': value,
-      if (instance.query case final value?) 'query': value,
+      if (instance.q case final value?) 'q': value,
     };

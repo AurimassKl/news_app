@@ -27,7 +27,7 @@ class NewsFilter {
       country: country,
       category: category,
       sources: sources,
-      query: query,
+      q: query,
     );
   }
 }

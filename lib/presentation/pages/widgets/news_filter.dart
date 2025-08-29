@@ -11,9 +11,15 @@ import 'package:newsapp/presentation/bloc/news_source/news_sources_event.dart';
 import 'package:newsapp/presentation/bloc/news_source/news_sources_state.dart';
 import 'package:sealed_countries/sealed_countries.dart';
 
-class NewsFilterBar extends StatelessWidget {
+class NewsFilterBar extends StatefulWidget {
   const NewsFilterBar({super.key});
 
+  @override
+  State<NewsFilterBar> createState() => _NewsFilterBarState();
+}
+
+class _NewsFilterBarState extends State<NewsFilterBar> {
+  late TextEditingController _queryController;
   static const categories = [
     'business',
     'entertainment',
@@ -23,6 +29,13 @@ class NewsFilterBar extends StatelessWidget {
     'sports',
     'technology',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    final bloc = context.read<NewsArticlesBloc>();
+    _queryController = TextEditingController(text: bloc.currentFilter.query ?? "");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class NewsFilterBar extends StatelessWidget {
                       value: c.codeShort.toLowerCase(),
                       child: Text("${c.emoji} ${c.name.common}"),
                     );
-                  }).toList()
+                  })
                 ],
                 onChanged: (val) {
                   if (val == null) return;
@@ -105,7 +118,7 @@ class NewsFilterBar extends StatelessWidget {
                             child: Text(src.name),
                           );
                         },
-                      ).toList()
+                      )
                     ],
                     onChanged: (val) {
                       if (val == null) return;
@@ -118,6 +131,29 @@ class NewsFilterBar extends StatelessWidget {
                     },
                   );
                 },
+              ),
+              SizedBox(
+                width: 200,
+                child: TextField(
+                  controller: _queryController,
+                  decoration: InputDecoration(
+                    hintText: "Search query",
+                    border: const OutlineInputBorder(),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        _queryController.clear();
+                        final newFilter = currentFilter.copyWith(query: "");
+                        articlesBloc.add(FetchNewsArticles(newFilter));
+                      },
+                    ),
+                  ),
+                  onSubmitted: (val) {
+                    final newFilter = currentFilter.copyWith(query: val.isEmpty ? "" : val);
+                    articlesBloc.add(FetchNewsArticles(newFilter));
+                  },
+                ),
               ),
             ],
           ),

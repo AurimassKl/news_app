@@ -7,13 +7,13 @@ class NewsFilterModel {
   final String? country;
   final String? category;
   final String? sources;
-  final String? query;
+  final String? q;
 
   const NewsFilterModel({
     this.country,
     this.category,
     this.sources,
-    this.query,
+    this.q,
   });
 
   factory NewsFilterModel.fromJson(Map<String, dynamic> json) => _$NewsFilterModelFromJson(json);
