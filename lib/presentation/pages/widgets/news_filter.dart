@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
-import 'package:newsapp/presentation/bloc/news_articles_bloc.dart';
-import 'package:newsapp/presentation/bloc/news_articles_event.dart';
-import 'package:newsapp/presentation/bloc/news_articles_state.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
 import 'package:sealed_countries/sealed_countries.dart';
 
 class NewsFilterBar extends StatelessWidget {

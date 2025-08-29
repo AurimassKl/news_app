@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newsapp/core/routes.dart';
 import 'package:newsapp/di/di.dart';
 import 'package:newsapp/domain/use_cases/get_news_articles.dart';
-import 'package:newsapp/presentation/bloc/news_articles_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

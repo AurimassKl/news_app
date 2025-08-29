@@ -1,5 +1,5 @@
 import 'package:newsapp/core/result.dart';
-import 'package:newsapp/data/data_source/news_articles_data_source.dart';
+import 'package:newsapp/data/data_source/news_articles/news_articles_data_source.dart';
 import 'package:newsapp/data/models/news_article/news_article_model.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';

@@ -4,9 +4,9 @@ import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
-import 'package:newsapp/presentation/bloc/news_articles_bloc.dart';
-import 'package:newsapp/presentation/bloc/news_articles_event.dart';
-import 'package:newsapp/presentation/bloc/news_articles_state.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
+import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
 import 'package:newsapp/presentation/pages/widgets/news_filter.dart';
 
 class NewsListPage extends StatefulWidget {
