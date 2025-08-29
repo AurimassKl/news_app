@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/presentation/bloc/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles_event.dart';
@@ -23,8 +24,15 @@ class _NewsListPageState extends State<NewsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Top headlines',
+        title: Center(
+          child: Text(
+            'Top headlines',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+              foreground: Paint()..shader = kAppBarTextColor,
+            ),
+          ),
         ),
       ),
       body: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(builder: (context, state) {
@@ -54,24 +62,32 @@ class _NewsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (_, i) {
-        final article = newsArticles[i];
-        return ListTile(
-          leading: article.urlToImage != ""
-              ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
-              : const Icon(Icons.article_outlined),
-          title: Text(article.title),
-          subtitle: Text(article.sourceName ?? ''),
-          onTap: () => _openArticle(context, article.url),
-        );
-      },
-      separatorBuilder: (_, __) => const Divider(
-        height: 1,
+    return RefreshIndicator(
+      onRefresh: () => _onRefresh(context),
+      child: ListView.separated(
+        itemBuilder: (_, i) {
+          final article = newsArticles[i];
+          return ListTile(
+            leading: article.urlToImage != ""
+                ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
+                : const Icon(Icons.article_outlined),
+            title: Text(article.title),
+            subtitle: Text(article.sourceName ?? ''),
+            onTap: () => _openArticle(context, article),
+          );
+        },
+        separatorBuilder: (_, __) => const Divider(
+          height: 1,
+        ),
+        itemCount: newsArticles.length,
       ),
-      itemCount: newsArticles.length,
     );
   }
 
-  void _openArticle(BuildContext context, String url) {}
+  Future<void> _onRefresh(BuildContext context) {
+    context.read<NewsArticlesBloc>().add(NewsArticlesEvent());
+    return Future.delayed(const Duration(milliseconds: 300));
+  }
+
+  void _openArticle(BuildContext context, NewsArticle article) {}
 }
