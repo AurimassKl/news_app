@@ -3,6 +3,7 @@ import 'package:newsapp/core/variables.dart';
 import 'package:newsapp/data/data_source/news_articles_data_source.dart';
 import 'package:newsapp/data/models/news_article/news_article_model.dart';
 import 'package:newsapp/data/models/news_response/news_response_model.dart';
+import 'package:newsapp/domain/entities/news_filter.dart';
 
 class NewsArticlesDataSourceImpl implements NewsArticlesDataSource {
   final Dio dio;
@@ -10,9 +11,9 @@ class NewsArticlesDataSourceImpl implements NewsArticlesDataSource {
   NewsArticlesDataSourceImpl(this.dio);
 
   @override
-  Future<List<NewsArticleModel>> getNewsArticles() async {
+  Future<List<NewsArticleModel>> getNewsArticles(NewsFilter filter) async {
     try {
-      final response = await dio.get("v2/top-headlines", queryParameters: {"country": "us", "apiKey": newsApiKey});
+      final response = await dio.get("v2/top-headlines", queryParameters: {...filter.toModel().toJson(), "apiKey": newsApiKey});
       final responseModel = NewsResponseModel.fromJson(response.data);
 
       if (responseModel.status == "ok") {
@@ -21,9 +22,9 @@ class NewsArticlesDataSourceImpl implements NewsArticlesDataSource {
       } else {
         print(responseModel.status);
       }
-    } catch (e) {
-      print("--ERROR-");
+    } catch (e, stackTrace) {
       print(e);
+      print(stackTrace);
     }
     return [];
   }

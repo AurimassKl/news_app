@@ -8,9 +8,9 @@ class NewsArticleModel {
   final SourceModel source;
   final String? author;
   final String title;
-  final String description;
+  final String? description;
   final String url;
-  final String urlToImage;
+  final String? urlToImage;
   final String publishedAt;
   final String? content;
 
@@ -18,9 +18,9 @@ class NewsArticleModel {
     required this.source,
     this.author,
     required this.title,
-    required this.description,
+    this.description,
     required this.url,
-    required this.urlToImage,
+    this.urlToImage,
     required this.publishedAt,
     this.content,
   });
@@ -31,9 +31,9 @@ class NewsArticleModel {
 
   NewsArticle toEntity() => NewsArticle(
         title: title,
-        description: description,
+        description: description ?? "",
         url: url,
-        urlToImage: urlToImage,
+        urlToImage: urlToImage ?? "",
         publishedAt: publishedAt,
         sourceName: source.name,
         sourceId: source.id ?? "",

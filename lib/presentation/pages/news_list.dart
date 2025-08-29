@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
+import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles_event.dart';
 import 'package:newsapp/presentation/bloc/news_articles_state.dart';
+import 'package:newsapp/presentation/pages/widgets/news_filter.dart';
 
 class NewsListPage extends StatefulWidget {
   const NewsListPage({super.key});
@@ -17,40 +20,49 @@ class _NewsListPageState extends State<NewsListPage> {
   @override
   void initState() {
     super.initState();
-    context.read<NewsArticlesBloc>().add(NewsArticlesEvent());
+    context.read<NewsArticlesBloc>().add(FetchNewsArticles(NewsFilter(country: "us")));
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: Center(
           child: Text(
             'Top headlines',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: SizeConfig.screenWidth * 0.1,
               fontWeight: FontWeight.w900,
               foreground: Paint()..shader = kAppBarTextColor,
             ),
           ),
         ),
       ),
-      body: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(builder: (context, state) {
-        if (state is NewsArticlesFetchingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is NewsArticlesErrorState) {
-          return const Center(
-            child: Text("Error"),
-          );
-        }
-        if (state is NewsArticlesFetchedState) {
-          return _NewsList(state.newsArticles);
-        }
-        return const SizedBox.shrink();
-      }),
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          NewsFilterBar(),
+          Expanded(
+            child: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(builder: (context, state) {
+              if (state is NewsArticlesFetchingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is NewsArticlesErrorState) {
+                return const Center(
+                  child: Text("Error"),
+                );
+              }
+              if (state is NewsArticlesFetchedState) {
+                return _NewsList(state.newsArticles);
+              }
+              return const SizedBox.shrink();
+            }),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -85,7 +97,8 @@ class _NewsList extends StatelessWidget {
   }
 
   Future<void> _onRefresh(BuildContext context) {
-    context.read<NewsArticlesBloc>().add(NewsArticlesEvent());
+    final bloc = context.read<NewsArticlesBloc>();
+    bloc.add(FetchNewsArticles(bloc.currentFilter));
     return Future.delayed(const Duration(milliseconds: 300));
   }
 
