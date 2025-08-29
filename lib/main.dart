@@ -4,7 +4,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newsapp/core/routes.dart';
 import 'package:newsapp/di/di.dart';
 import 'package:newsapp/domain/use_cases/get_news_articles.dart';
+import 'package:newsapp/domain/use_cases/get_news_sources_article.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_source/news_sources_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => NewsArticlesBloc(sl<GetNewsArticles>())),
+        BlocProvider(create: (_) => NewsSourcesBloc(sl<GetNewsSources>())),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

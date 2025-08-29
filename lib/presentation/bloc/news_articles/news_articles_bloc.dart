@@ -8,7 +8,7 @@ import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart
 class NewsArticlesBloc extends Bloc<NewsArticlesEvent, NewsArticlesState> {
   final GetNewsArticles _useCase;
 
-  NewsFilter _currentFilter = const NewsFilter(country: "us");
+  NewsFilter _currentFilter = NewsFilter(country: "us");
 
   NewsFilter get currentFilter => _currentFilter;
 

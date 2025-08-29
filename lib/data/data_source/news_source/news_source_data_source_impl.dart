@@ -5,10 +5,10 @@ import 'package:newsapp/data/models/news_source/news_source_model.dart';
 import 'package:newsapp/data/models/news_source_responce/news_source_response_model.dart';
 import 'package:newsapp/domain/entities/news_source_filter.dart';
 
-class NewsSourceDataSourceImpl implements NewsSourceDataSource {
+class NewsSourcesDataSourceImpl implements NewsSourcesDataSource {
   final Dio dio;
 
-  NewsSourceDataSourceImpl(this.dio);
+  NewsSourcesDataSourceImpl(this.dio);
 
   @override
   Future<List<NewsSourceModel>> getNewsSources(NewsSourceFilter filter) async {

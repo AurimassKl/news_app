@@ -3,12 +3,12 @@ import 'package:newsapp/data/data_source/news_source/news_source_data_source.dar
 import 'package:newsapp/data/models/news_source/news_source_model.dart';
 import 'package:newsapp/domain/entities/news_source_filter.dart';
 import 'package:newsapp/domain/entities/news_sources.dart';
-import 'package:newsapp/domain/repositories/news_source.dart';
+import 'package:newsapp/domain/repositories/news_sources_repository.dart';
 
-class NewsSourceRepositoryImpl implements NewsSourceRepository {
-  final NewsSourceDataSource dataSource;
+class NewsSourcesRepositoryImpl implements NewsSourcesRepository {
+  final NewsSourcesDataSource dataSource;
 
-  NewsSourceRepositoryImpl(this.dataSource);
+  NewsSourcesRepositoryImpl(this.dataSource);
 
   @override
   Future<Result<List<NewsSource>>> getNewsSources(NewsSourceFilter filter) async {
