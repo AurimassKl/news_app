@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
+import 'package:newsapp/domain/entities/news_source_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
+import 'package:newsapp/presentation/bloc/news_source/news_sources_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_source/news_sources_event.dart';
 import 'package:sealed_countries/sealed_countries.dart';
 
 class NewsFilterBar extends StatelessWidget {
@@ -45,6 +48,7 @@ class NewsFilterBar extends StatelessWidget {
 
                   final newFilter = currentFilter.copyWith(country: val);
                   bloc.add(FetchNewsArticles(newFilter));
+                  context.read<NewsSourcesBloc>().add(FetchNewsSources(NewsSourceFilter(country: val)));
                 },
               ),
               DropdownButton<String>(
