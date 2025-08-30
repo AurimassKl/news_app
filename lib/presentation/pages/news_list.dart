@@ -54,11 +54,9 @@ class _NewsListPageState extends State<NewsListPage> {
                 );
               }
               if (state is NewsArticlesErrorState) {
-                return const Center(
-                  child: Text(
-                    "Error",
-                    style: TextStyle(color: Colors.black),
-                  ),
+                return Text(
+                  state.message,
+                  style: TextStyle(color: Colors.black),
                 );
               }
               if (state is NewsArticlesFetchedState) {

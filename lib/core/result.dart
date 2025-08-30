@@ -5,11 +5,12 @@ sealed class Result<T> {
 class Success<T> extends Result<T> {
   final T data;
 
-  const Success(this.data);
+  const Success({required this.data});
 }
 
 class Failure<T> extends Result<T> {
   final String message;
+  final int? statusCode;
 
-  const Failure(this.message);
+  const Failure({required this.message, this.statusCode});
 }
