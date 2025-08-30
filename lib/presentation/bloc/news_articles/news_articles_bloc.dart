@@ -38,6 +38,7 @@ class NewsArticlesBloc extends Bloc<NewsArticlesEvent, NewsArticlesState> {
         final hasMore = _articles.isNotEmpty;
         emit(NewsArticlesFetchedState(_articles, hasMore: hasMore));
       case Failure(:final message):
+        print("---");
         emit(NewsArticlesErrorState(message));
     }
   }

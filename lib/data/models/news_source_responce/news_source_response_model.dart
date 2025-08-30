@@ -6,11 +6,17 @@ part 'news_source_response_model.g.dart';
 @JsonSerializable()
 class NewsSourceResponseModel {
   final String status;
-  final List<NewsSourceModel> sources;
+  final int? totalResults;
+  final List<NewsSourceModel>? sources;
+  final String? code;
+  final String? message;
 
   const NewsSourceResponseModel({
     required this.status,
-    required this.sources,
+    this.totalResults,
+    this.sources,
+    this.code,
+    this.message,
   });
 
   factory NewsSourceResponseModel.fromJson(Map<String, dynamic> json) => _$NewsSourceResponseModelFromJson(json);

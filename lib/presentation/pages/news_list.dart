@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
+import 'package:newsapp/domain/entities/news_filter.dart';
+import 'package:newsapp/domain/entities/news_source_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
+import 'package:newsapp/presentation/bloc/news_source/news_sources_bloc.dart';
+import 'package:newsapp/presentation/bloc/news_source/news_sources_event.dart';
 import 'package:newsapp/presentation/pages/widgets/news_filter.dart';
 
 class NewsListPage extends StatefulWidget {
@@ -19,8 +23,8 @@ class _NewsListPageState extends State<NewsListPage> {
   @override
   void initState() {
     super.initState();
-    // context.read<NewsArticlesBloc>().add(FetchNewsArticles(NewsFilter(country: "us")));
-    // context.read<NewsSourcesBloc>().add(FetchNewsSources(NewsSourceFilter(country: "us")));
+    context.read<NewsArticlesBloc>().add(FetchNewsArticles(NewsFilter(country: "us")));
+    context.read<NewsSourcesBloc>().add(FetchNewsSources(NewsSourceFilter(country: "us")));
   }
 
   @override
@@ -51,7 +55,10 @@ class _NewsListPageState extends State<NewsListPage> {
               }
               if (state is NewsArticlesErrorState) {
                 return const Center(
-                  child: Text("Error"),
+                  child: Text(
+                    "Error",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 );
               }
               if (state is NewsArticlesFetchedState) {

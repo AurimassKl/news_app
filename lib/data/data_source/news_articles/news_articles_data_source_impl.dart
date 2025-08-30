@@ -13,7 +13,10 @@ class NewsArticlesDataSourceImpl implements NewsArticlesDataSource {
   @override
   Future<List<NewsArticleModel>> getNewsArticles(NewsFilter filter) async {
     try {
-      final response = await dio.get("v2/top-headlines", queryParameters: {...filter.toModel().toJson(), "apiKey": newsApiKey});
+      final response = await dio.get(
+        "v2/top-headlines",
+        queryParameters: {...filter.toModel().toJson(), "apiKey": newsApiKey},
+      );
       final responseModel = NewsResponseModel.fromJson(response.data);
 
       if (responseModel.status == "ok") {

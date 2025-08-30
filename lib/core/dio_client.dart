@@ -2,5 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:newsapp/core/variables.dart';
 
 Dio newsApiDio() {
-  return Dio(BaseOptions(baseUrl: newsBaseUrl));
+  return Dio(
+    BaseOptions(
+      baseUrl: newsBaseUrl,
+      validateStatus: (status) {
+        return status != null && status < 500;
+      },
+    ),
+  );
 }
