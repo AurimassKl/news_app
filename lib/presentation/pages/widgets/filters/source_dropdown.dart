@@ -60,12 +60,15 @@ class SourceDropdownButton extends StatelessWidget {
             selectedItemBuilder: (context) {
               return [
                 for (var c in ["", ...(sourcesState is NewsSourcesFetchedState ? sourcesState.newsSources : <NewsSource>[]).map((src) => src)])
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      c == "" ? "Source" : (c as NewsSource).name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    width: 140,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        c == "" ? "Source" : (c as NewsSource).name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
               ];

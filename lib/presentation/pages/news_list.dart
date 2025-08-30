@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/core/colors.dart';
+import 'package:newsapp/core/utils/time_formater.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/domain/entities/news_source_filter.dart';
@@ -120,18 +121,6 @@ class _NewsListState extends State<_NewsList> {
     super.dispose();
   }
 
-  void _onScroll() {
-    final bloc = context.read<NewsArticlesBloc>();
-    final state = bloc.state;
-    if (state is! NewsArticlesFetchedState) return;
-
-    final nearBottom = _scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200;
-
-    if (nearBottom && state.hasMore && !state.isLoadingMore) {
-      bloc.add(FetchMoreNewsArticles());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -148,19 +137,87 @@ class _NewsListState extends State<_NewsList> {
         }
 
         final article = items[index];
-        return ListTile(
-          // leading: article.urlToImage != ""
-          //     ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
-          //     : const Icon(Icons.article_outlined),
-          leading: Text(index.toString()),
-          title: Text(article.title),
 
-          subtitle: Text(article.sourceName ?? ''),
-          onTap: () => _openArticle(context, article),
+        //ToDo add adaptive sizing
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          elevation: 3,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () => _openArticle(article),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/default_news.png',
+                      image: article.urlToImage.isNotEmpty == true ? article.urlToImage : '',
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/default_news.png',
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                  Text(
+                    article.title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    article.description,
+                    style: TextStyle(
+                      fontSize: 13,
+                    ),
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      timeToReadableFormat(article.publishedAt),
+                      style: TextStyle(
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );
   }
 
-  void _openArticle(BuildContext context, NewsArticle article) {}
+  void _onScroll() {
+    final bloc = context.read<NewsArticlesBloc>();
+    final state = bloc.state;
+    if (state is! NewsArticlesFetchedState) return;
+
+    final nearBottom = _scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200;
+
+    if (nearBottom && state.hasMore && !state.isLoadingMore) {
+      bloc.add(FetchMoreNewsArticles());
+    }
+  }
+
+  void _openArticle(NewsArticle article) {}
 }

@@ -9,7 +9,6 @@ class NewsSourcesDataSourceImpl implements NewsSourcesDataSource {
   final Dio dio;
 
   NewsSourcesDataSourceImpl(this.dio);
-
   @override
   Future<Result<NewsSourceResponseModel>> getNewsSources(NewsSourceFilter filter) async {
     try {
