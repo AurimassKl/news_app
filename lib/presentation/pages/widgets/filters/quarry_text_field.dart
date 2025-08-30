@@ -18,8 +18,8 @@ class QuarryTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       height: AppDropdownStyles.height,
       child: Material(
         elevation: 2,

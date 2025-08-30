@@ -43,21 +43,25 @@ class _NewsFilterBarState extends State<NewsFilterBar> {
         final articlesBloc = context.read<NewsArticlesBloc>();
         final currentFilter = articlesBloc.currentFilter;
 
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              spacing: 20,
-              children: [
-                CountryDropdownButton(currentFilter: currentFilter, articlesBloc: articlesBloc),
-                CategoryDropdownButton(currentFilter: currentFilter, categories: categories, articlesBloc: articlesBloc),
-                SourceDropdownButton(currentFilter: currentFilter, articlesBloc: articlesBloc),
-                QuarryTextField(queryController: _queryController, currentFilter: currentFilter, articlesBloc: articlesBloc),
-              ],
+        return Column(
+          children: [
+            QuarryTextField(queryController: _queryController, currentFilter: currentFilter, articlesBloc: articlesBloc),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  spacing: 10,
+                  children: [
+                    CountryDropdownButton(currentFilter: currentFilter, articlesBloc: articlesBloc),
+                    CategoryDropdownButton(currentFilter: currentFilter, categories: categories, articlesBloc: articlesBloc),
+                    SourceDropdownButton(currentFilter: currentFilter, articlesBloc: articlesBloc),
+                  ],
+                ),
+              ),
             ),
-          ),
+          ],
         );
       },
     );

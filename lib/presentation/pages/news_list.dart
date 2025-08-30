@@ -30,7 +30,7 @@ class _NewsListPageState extends State<NewsListPage> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Top headlines',
+            'News Articles',
             style: TextStyle(
               fontSize: SizeConfig.screenWidth * 0.1,
               fontWeight: FontWeight.w900,
