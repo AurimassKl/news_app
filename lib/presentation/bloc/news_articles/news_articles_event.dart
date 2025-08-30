@@ -8,3 +8,5 @@ class FetchNewsArticles extends NewsArticlesEvent {
   final NewsFilter filter;
   FetchNewsArticles(this.filter);
 }
+
+class FetchMoreNewsArticles extends NewsArticlesEvent {}

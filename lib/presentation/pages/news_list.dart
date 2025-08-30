@@ -59,7 +59,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 );
               }
               if (state is NewsArticlesFetchedState) {
-                return _NewsList(state.newsArticles);
+                return _NewsList(state);
               }
               return const SizedBox.shrink();
             }),
@@ -70,39 +70,82 @@ class _NewsListPageState extends State<NewsListPage> {
   }
 }
 
-class _NewsList extends StatelessWidget {
-  final List<NewsArticle> newsArticles;
+class _NewsList extends StatefulWidget {
+  final NewsArticlesFetchedState state;
 
-  const _NewsList(this.newsArticles, {super.key});
+  const _NewsList(this.state, {super.key});
+
+  @override
+  State<_NewsList> createState() => _NewsListState();
+}
+
+class _NewsListState extends State<_NewsList> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final bloc = context.read<NewsArticlesBloc>();
+    final state = bloc.state;
+    if (state is! NewsArticlesFetchedState) return;
+
+    final nearBottom = _scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200;
+
+    if (nearBottom && state.hasMore && !state.isLoadingMore) {
+      bloc.add(FetchMoreNewsArticles());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final items = widget.state.newsArticles;
+    final showFooterLoader = widget.state.isLoadingMore;
+
     return RefreshIndicator(
       onRefresh: () => _onRefresh(context),
-      child: ListView.separated(
-        itemBuilder: (_, i) {
-          final article = newsArticles[i];
+      child: ListView.builder(
+        controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: items.length + (showFooterLoader ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (showFooterLoader && index == items.length) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          final article = items[index];
           return ListTile(
-            leading: article.urlToImage != ""
-                ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
-                : const Icon(Icons.article_outlined),
+            // leading: article.urlToImage != ""
+            //     ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
+            //     : const Icon(Icons.article_outlined),
+            leading: Text(index.toString()),
             title: Text(article.title),
+
             subtitle: Text(article.sourceName ?? ''),
             onTap: () => _openArticle(context, article),
           );
         },
-        separatorBuilder: (_, __) => const Divider(
-          height: 1,
-        ),
-        itemCount: newsArticles.length,
       ),
     );
   }
 
-  Future<void> _onRefresh(BuildContext context) {
+  Future<void> _onRefresh(BuildContext context) async {
     final bloc = context.read<NewsArticlesBloc>();
     bloc.add(FetchNewsArticles(bloc.currentFilter));
-    return Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 300));
   }
 
   void _openArticle(BuildContext context, NewsArticle article) {}
