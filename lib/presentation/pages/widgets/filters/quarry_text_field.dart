@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
@@ -18,8 +19,9 @@ class QuarryTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.03),
       height: AppDropdownStyles.height,
       child: Material(
         elevation: 2,
@@ -27,6 +29,9 @@ class QuarryTextField extends StatelessWidget {
         child: TextField(
           controller: _queryController,
           decoration: InputDecoration(
+            hintStyle: AppDropdownStyles.hintTextStyle(
+              fontSize: SizeConfig.screenWidth * 0.04,
+            ),
             hintText: "Search query",
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

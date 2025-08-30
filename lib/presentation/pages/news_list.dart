@@ -52,32 +52,33 @@ class _NewsListPageState extends State<NewsListPage> {
               child: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(
                 builder: (context, state) {
                   return RefreshIndicator(
-                      onRefresh: () => _onRefresh(context),
-                      child: () {
-                        if (state is NewsArticlesFetchingState) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (state is NewsArticlesErrorState) {
-                          return ListView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            children: [
-                              Text(
-                                state.message,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: SizeConfig.screenWidth * 0.04,
-                                ),
+                    onRefresh: () => _onRefresh(context),
+                    child: () {
+                      if (state is NewsArticlesFetchingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is NewsArticlesErrorState) {
+                        return ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            Text(
+                              state.message,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: SizeConfig.screenWidth * 0.04,
                               ),
-                            ],
-                          );
-                        }
-                        if (state is NewsArticlesFetchedState) {
-                          return _NewsList(state);
-                        }
-                        return const SizedBox.shrink();
-                      }());
+                            ),
+                          ],
+                        );
+                      }
+                      if (state is NewsArticlesFetchedState) {
+                        return _NewsList(state);
+                      }
+                      return const SizedBox.shrink();
+                    }(),
+                  );
                 },
               ),
             ),

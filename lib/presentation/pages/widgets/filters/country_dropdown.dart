@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/domain/entities/news_source_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
@@ -22,14 +23,14 @@ class CountryDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
         isExpanded: true,
         hint: Text(
-          'Country',
-          style: TextStyle(
-            fontSize: 14,
-            color: Theme.of(context).hintColor,
+          "Countries",
+          style: AppDropdownStyles.hintTextStyle(
+            fontSize: SizeConfig.screenWidth * 0.04,
           ),
         ),
         items: [

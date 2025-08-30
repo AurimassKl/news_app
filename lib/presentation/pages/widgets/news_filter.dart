@@ -49,10 +49,13 @@ class _NewsFilterBarState extends State<NewsFilterBar> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenWidth * 0.03,
+                  vertical: SizeConfig.screenWidth * 0.02,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  spacing: 10,
+                  spacing: SizeConfig.screenWidth * 0.025,
                   children: [
                     CountryDropdownButton(currentFilter: currentFilter, articlesBloc: articlesBloc),
                     CategoryDropdownButton(currentFilter: currentFilter, categories: categories, articlesBloc: articlesBloc),

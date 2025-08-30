@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/domain/entities/news_sources.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
@@ -21,12 +22,18 @@ class SourceDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return BlocBuilder<NewsSourcesBloc, NewsSourcesState>(
       builder: (context, sourcesState) {
         return DropdownButtonHideUnderline(
           child: DropdownButton2<String>(
             value: currentFilter.sources,
-            hint: const Text("Source"),
+            hint: Text(
+              "Sources",
+              style: AppDropdownStyles.hintTextStyle(
+                fontSize: SizeConfig.screenWidth * 0.04,
+              ),
+            ),
             items: [
               const DropdownMenuItem<String>(
                 value: "",
