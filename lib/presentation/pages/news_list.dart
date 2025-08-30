@@ -47,27 +47,50 @@ class _NewsListPageState extends State<NewsListPage> {
         children: [
           NewsFilterBar(),
           Expanded(
-            child: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(builder: (context, state) {
-              if (state is NewsArticlesFetchingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is NewsArticlesErrorState) {
-                return Text(
-                  state.message,
-                  style: TextStyle(color: Colors.black),
-                );
-              }
-              if (state is NewsArticlesFetchedState) {
-                return _NewsList(state);
-              }
-              return const SizedBox.shrink();
-            }),
+            child: Padding(
+              padding: EdgeInsets.all(SizeConfig.screenWidth * 0.03),
+              child: BlocBuilder<NewsArticlesBloc, NewsArticlesState>(
+                builder: (context, state) {
+                  return RefreshIndicator(
+                      onRefresh: () => _onRefresh(context),
+                      child: () {
+                        if (state is NewsArticlesFetchingState) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is NewsArticlesErrorState) {
+                          return ListView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            children: [
+                              Text(
+                                state.message,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: SizeConfig.screenWidth * 0.04,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        if (state is NewsArticlesFetchedState) {
+                          return _NewsList(state);
+                        }
+                        return const SizedBox.shrink();
+                      }());
+                },
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _onRefresh(BuildContext context) async {
+    final bloc = context.read<NewsArticlesBloc>();
+    bloc.add(FetchNewsArticles(bloc.currentFilter));
+    await Future.delayed(const Duration(milliseconds: 300));
   }
 }
 
@@ -110,43 +133,32 @@ class _NewsListState extends State<_NewsList> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final items = widget.state.newsArticles;
     final showFooterLoader = widget.state.isLoadingMore;
 
-    return RefreshIndicator(
-      onRefresh: () => _onRefresh(context),
-      child: ListView.builder(
-        controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: items.length + (showFooterLoader ? 1 : 0),
-        itemBuilder: (context, index) {
-          if (showFooterLoader && index == items.length) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
+    return ListView.builder(
+      controller: _scrollController,
+      physics: const AlwaysScrollableScrollPhysics(),
+      itemCount: items.length + (showFooterLoader ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (showFooterLoader && index == items.length) {
+          return Center(child: CircularProgressIndicator());
+        }
 
-          final article = items[index];
-          return ListTile(
-            // leading: article.urlToImage != ""
-            //     ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
-            //     : const Icon(Icons.article_outlined),
-            leading: Text(index.toString()),
-            title: Text(article.title),
+        final article = items[index];
+        return ListTile(
+          // leading: article.urlToImage != ""
+          //     ? Image.network(article.urlToImage.toString(), width: 60, fit: BoxFit.cover)
+          //     : const Icon(Icons.article_outlined),
+          leading: Text(index.toString()),
+          title: Text(article.title),
 
-            subtitle: Text(article.sourceName ?? ''),
-            onTap: () => _openArticle(context, article),
-          );
-        },
-      ),
+          subtitle: Text(article.sourceName ?? ''),
+          onTap: () => _openArticle(context, article),
+        );
+      },
     );
-  }
-
-  Future<void> _onRefresh(BuildContext context) async {
-    final bloc = context.read<NewsArticlesBloc>();
-    bloc.add(FetchNewsArticles(bloc.currentFilter));
-    await Future.delayed(const Duration(milliseconds: 300));
   }
 
   void _openArticle(BuildContext context, NewsArticle article) {}
