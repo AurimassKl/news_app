@@ -62,7 +62,7 @@ class CategoryDropdownButton extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  style: TextStyle(),
+                  style: AppDropdownStyles.buttonTextStyle(),
                   c == "" ? "Category" : c,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

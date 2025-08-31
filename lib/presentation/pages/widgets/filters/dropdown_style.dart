@@ -14,6 +14,12 @@ class AppDropdownStyles {
         fontWeight: FontWeight.w500,
       );
 
+  static TextStyle buttonTextStyle({double? fontSize = 16}) => TextStyle(
+        fontSize: fontSize,
+        color: kTextColor,
+        fontWeight: FontWeight.w500,
+      );
+
   static ButtonStyleData buttonStyle({double? width}) => ButtonStyleData(
         padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
         height: height,

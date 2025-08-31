@@ -68,7 +68,7 @@ class _NewsListPageState extends State<NewsListPage> {
                             Text(
                               state.message,
                               style: TextStyle(
-                                color: Colors.black,
+                                color: kTextColor,
                                 fontSize: SizeConfig.screenWidth * 0.04,
                               ),
                             ),
@@ -177,6 +177,7 @@ class _NewsListState extends State<_NewsList> {
                   Text(
                     article.title,
                     style: TextStyle(
+                      color: kTextColor,
                       fontSize: SizeConfig.screenWidth * 0.04,
                       fontWeight: FontWeight.bold,
                     ),
@@ -186,7 +187,9 @@ class _NewsListState extends State<_NewsList> {
                   Text(
                     article.description,
                     style: TextStyle(
+                      color: kTextColor,
                       fontSize: SizeConfig.screenWidth * 0.032,
+                      fontWeight: FontWeight.w500,
                     ),
                     softWrap: true,
                     maxLines: 2,
@@ -198,7 +201,9 @@ class _NewsListState extends State<_NewsList> {
                     child: Text(
                       timeToReadableFormat(article.publishedAt),
                       style: TextStyle(
+                        color: kTextColor,
                         fontSize: SizeConfig.screenWidth * 0.03,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),

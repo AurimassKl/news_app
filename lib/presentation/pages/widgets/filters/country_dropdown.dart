@@ -68,6 +68,7 @@ class CountryDropdownButton extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
+                  style: AppDropdownStyles.buttonTextStyle(),
                   c == ""
                       ? "All"
                       : (() {

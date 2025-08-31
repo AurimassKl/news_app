@@ -65,6 +65,7 @@ class SourceDropdownButton extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
+                        style: AppDropdownStyles.buttonTextStyle(),
                         c == "" ? "Source" : (c as NewsSource).name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

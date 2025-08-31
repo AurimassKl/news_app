@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/core/routes.dart';
 import 'package:newsapp/di/di.dart';
 import 'package:newsapp/domain/use_cases/get_news_articles.dart';
@@ -33,9 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: router,
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
+        theme: ThemeData(useMaterial3: true, scaffoldBackgroundColor: kBackgroundColor),
       ),
     );
   }

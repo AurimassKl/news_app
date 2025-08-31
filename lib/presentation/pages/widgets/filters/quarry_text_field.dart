@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
+import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
@@ -27,6 +28,11 @@ class QuarryTextField extends StatelessWidget {
         elevation: 2,
         borderRadius: BorderRadius.circular(14),
         child: TextField(
+          style: TextStyle(
+            color: kTextColor,
+            fontWeight: FontWeight.w500,
+            fontSize: SizeConfig.screenWidth * 0.04,
+          ),
           controller: _queryController,
           decoration: InputDecoration(
             hintStyle: AppDropdownStyles.hintTextStyle(
@@ -42,7 +48,7 @@ class QuarryTextField extends StatelessWidget {
               vertical: 0,
             ),
             filled: true,
-            fillColor: Colors.grey[100],
+            fillColor: kSearchQuarryColor,
             suffixIcon: IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
