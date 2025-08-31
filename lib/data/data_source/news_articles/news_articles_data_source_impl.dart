@@ -22,7 +22,7 @@ class NewsArticlesDataSourceImpl implements NewsArticlesDataSource {
     } catch (e, stackTrace) {
       print(e);
       print(stackTrace);
-      return Failure(message: e.toString());
+      return Failure(message: "Connection error, check if your internet is connected");
     }
   }
 }

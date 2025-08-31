@@ -67,10 +67,11 @@ class _NewsListPageState extends State<NewsListPage> {
                           physics: const AlwaysScrollableScrollPhysics(),
                           children: [
                             Text(
+                              textAlign: TextAlign.center,
                               state.message,
                               style: TextStyle(
                                 color: kTextColor,
-                                fontSize: SizeConfig.screenWidth * 0.04,
+                                fontSize: SizeConfig.screenWidth * 0.045,
                               ),
                             ),
                           ],
@@ -94,6 +95,7 @@ class _NewsListPageState extends State<NewsListPage> {
   Future<void> _onRefresh(BuildContext context) async {
     final bloc = context.read<NewsArticlesBloc>();
     bloc.add(FetchNewsArticles(bloc.currentFilter));
+    context.read<NewsSourcesBloc>().add(FetchNewsSources(NewsSourceFilter(country: bloc.currentFilter.country)));
     await Future.delayed(const Duration(milliseconds: 300));
   }
 }
