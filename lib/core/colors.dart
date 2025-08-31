@@ -6,4 +6,6 @@ final Shader kAppBarTextColor = LinearGradient(
 
 final Color? kHintTextColor = Colors.grey[600];
 
-final Color? kFilterDropdownColor = Colors.grey[100];
+final Color? kFilterDropdownColor = Colors.grey[200];
+
+final Color? kNewsCardColor = Colors.grey[200];

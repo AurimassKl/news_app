@@ -11,6 +11,7 @@ class AppDropdownStyles {
   static TextStyle hintTextStyle({double? fontSize = 20}) => TextStyle(
         fontSize: fontSize,
         color: kHintTextColor,
+        fontWeight: FontWeight.w500,
       );
 
   static ButtonStyleData buttonStyle({double? width}) => ButtonStyleData(

@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
         routerConfig: router,
         theme: ThemeData(
           useMaterial3: true,
-          colorSchemeSeed: Colors.grey,
         ),
       ),
     );

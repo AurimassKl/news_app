@@ -138,33 +138,36 @@ class _NewsListState extends State<_NewsList> {
 
         final article = items[index];
 
-        //ToDo add adaptive sizing
         return Card(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          color: kNewsCardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           elevation: 3,
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () => _openArticle(article),
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(SizeConfig.screenWidth * 0.02),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                     child: FadeInImage.assetNetwork(
                       placeholder: 'assets/images/default_news.png',
                       image: article.urlToImage.isNotEmpty == true ? article.urlToImage : '',
                       width: double.infinity,
-                      height: 200,
+                      height: SizeConfig.screenHeight * 0.22,
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace) {
                         return Image.asset(
                           'assets/images/default_news.png',
                           width: double.infinity,
-                          height: 200,
+                          height: SizeConfig.screenHeight * 0.22,
                           fit: BoxFit.cover,
                         );
                       },
@@ -173,7 +176,7 @@ class _NewsListState extends State<_NewsList> {
                   Text(
                     article.title,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: SizeConfig.screenWidth * 0.04,
                       fontWeight: FontWeight.bold,
                     ),
                     softWrap: true,
@@ -182,7 +185,7 @@ class _NewsListState extends State<_NewsList> {
                   Text(
                     article.description,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: SizeConfig.screenWidth * 0.032,
                     ),
                     softWrap: true,
                     maxLines: 2,
@@ -194,7 +197,7 @@ class _NewsListState extends State<_NewsList> {
                     child: Text(
                       timeToReadableFormat(article.publishedAt),
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: SizeConfig.screenWidth * 0.03,
                       ),
                     ),
                   ),
