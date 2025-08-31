@@ -15,15 +15,14 @@ class NewsDetailPage extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         forceMaterialTransparency: true,
-        title: Center(
-          child: Text(
-            'News Articles',
-            style: TextStyle(
-              fontSize: SizeConfig.screenWidth * 0.1,
-              fontWeight: FontWeight.w900,
-              foreground: Paint()..shader = kAppBarTextColor,
-            ),
+        title: Text(
+          'News Articles',
+          style: TextStyle(
+            fontSize: SizeConfig.screenWidth * 0.1,
+            fontWeight: FontWeight.w900,
+            foreground: Paint()..shader = kAppBarTextColor,
           ),
         ),
       ),
