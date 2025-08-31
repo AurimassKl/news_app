@@ -8,7 +8,7 @@ import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart'
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
 import 'package:newsapp/presentation/bloc/news_source/news_sources_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_source/news_sources_event.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/dropdown_style.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/dropdown_style.dart';
 import 'package:sealed_countries/sealed_countries.dart';
 
 class CountryDropdownButton extends StatelessWidget {

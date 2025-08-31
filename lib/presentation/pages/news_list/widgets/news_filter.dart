@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/category_dropdown.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/country_dropdown.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/quarry_text_field.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/source_dropdown.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/category_dropdown.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/country_dropdown.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/quarry_text_field.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/source_dropdown.dart';
 
 class NewsFilterBar extends StatefulWidget {
   const NewsFilterBar({super.key});

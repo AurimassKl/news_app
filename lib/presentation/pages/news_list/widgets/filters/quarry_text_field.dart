@@ -4,7 +4,7 @@ import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/domain/entities/news_filter.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart';
-import 'package:newsapp/presentation/pages/widgets/filters/dropdown_style.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/filters/dropdown_style.dart';
 
 class QuarryTextField extends StatelessWidget {
   const QuarryTextField({

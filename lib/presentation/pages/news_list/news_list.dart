@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newsapp/core/adaptive_screen.dart';
 import 'package:newsapp/core/colors.dart';
 import 'package:newsapp/core/utils/time_formater.dart';
@@ -11,7 +12,7 @@ import 'package:newsapp/presentation/bloc/news_articles/news_articles_event.dart
 import 'package:newsapp/presentation/bloc/news_articles/news_articles_state.dart';
 import 'package:newsapp/presentation/bloc/news_source/news_sources_bloc.dart';
 import 'package:newsapp/presentation/bloc/news_source/news_sources_event.dart';
-import 'package:newsapp/presentation/pages/widgets/news_filter.dart';
+import 'package:newsapp/presentation/pages/news_list/widgets/news_filter.dart';
 
 class NewsListPage extends StatefulWidget {
   const NewsListPage({super.key});
@@ -228,5 +229,7 @@ class _NewsListState extends State<_NewsList> {
     }
   }
 
-  void _openArticle(NewsArticle article) {}
+  void _openArticle(NewsArticle article) {
+    context.push("/details", extra: article);
+  }
 }

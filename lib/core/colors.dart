@@ -15,3 +15,9 @@ final Color kSearchQuarryColor = Color(0xffffffff);
 final Color kNewsCardColor = Color(0xffffffff);
 
 final Color kBackgroundColor = Color(0xffe5eddf);
+
+final Color kNewsButtonTextColor = Color(0xFFFFD300);
+
+final Color kNewsButtonColor = Color(0xff93b874);
+
+final Color kNewsButtonBorderColor = Color(0xff444f45);
