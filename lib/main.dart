@@ -34,7 +34,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: router,
-        theme: ThemeData(useMaterial3: true, scaffoldBackgroundColor: kBackgroundColor),
+        theme: ThemeData(
+          useMaterial3: true,
+          scaffoldBackgroundColor: kBackgroundColor,
+        ),
+        builder: (context, child) {
+          return SafeArea(
+            bottom: true,
+            child: child!,
+          );
+        },
       ),
     );
   }
