@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         builder: (context, child) {
           return SafeArea(
+            top: false,
             bottom: true,
             child: child!,
           );
