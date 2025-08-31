@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/domain/entities/news_article.dart';
 import 'package:newsapp/presentation/pages/news_detail/news_detail.dart';
@@ -11,9 +12,23 @@ GoRouter buildRouter() => GoRouter(
           routes: [
             GoRoute(
               path: "details",
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 final article = state.extra as NewsArticle;
-                return NewsDetailPage(article: article);
+                return CustomTransitionPage(
+                  key: state.pageKey,
+                  child: NewsDetailPage(article: article),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    final tween = Tween(begin: begin, end: end).chain(
+                      CurveTween(curve: Curves.easeInOut),
+                    );
+                    return SlideTransition(
+                      position: animation.drive(tween),
+                      child: child,
+                    );
+                  },
+                );
               },
             ),
           ],
