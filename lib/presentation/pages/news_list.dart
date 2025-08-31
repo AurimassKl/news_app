@@ -33,6 +33,7 @@ class _NewsListPageState extends State<NewsListPage> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: Center(
           child: Text(
             'News Articles',
