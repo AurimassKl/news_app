@@ -20,7 +20,7 @@ class _NewsFilterBarState extends State<NewsFilterBar> {
   static const categories = [
     "Business",
     "Entertainment",
-    "general",
+    "General",
     "Health",
     "Science",
     "Sports",
